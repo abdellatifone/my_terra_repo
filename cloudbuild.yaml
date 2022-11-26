@@ -8,7 +8,13 @@ steps:
   args: ['init']
   dir: 'terraform'
  
- 
+# 2b. Create the GCS bucket using Terraform
+- name: hashicorp/terraform
+  id: terraform-apply
+  args: ['apply', '-auto-approve']
+  dir: 'terraform'
+
+# Deploy the Cloud Function
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - functions
