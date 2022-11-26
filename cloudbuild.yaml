@@ -12,7 +12,7 @@ steps:
   args:
   - functions
   - deploy
-  - hello_world
+  - hello_world_px
   - --source=.
   - --trigger-bucket=gs://my_terra_test
   - --runtime=python37
