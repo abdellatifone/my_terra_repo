@@ -6,7 +6,7 @@ terraform {
 }
 
 provider "google" {
-  project = "grey-sort-challenge"
+  project = "sandbox-257707"
   region = "australia-southeast1-a"
 }
 
