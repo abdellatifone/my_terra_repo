@@ -16,7 +16,6 @@ steps:
   - --source=.
   - --stage-bucket=gs://my_terra_test
   - --trigger-bucket=gs://my_terra_test
-  - --trigger-http
   - --runtime=python37
   - --allow-unauthenticated
   
