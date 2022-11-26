@@ -1,7 +1,6 @@
 terraform {
   backend "gcs" {
     bucket = "tf-state-gcp-batch-ingestion"
-    region = "us-central1"
     prefix = "terraform/state"
   }
 }
