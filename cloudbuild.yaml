@@ -3,26 +3,5 @@ steps:
 - name: gcr.io/cloud-builders/git
   args: ['clone', 'https://github.com/polleyg/gcp-batch-ingestion-bigquery.git']
 
-# 2a. Set up GCS & BQ etc. using public terraform Docker image
-- name: hashicorp/terraform
-  args: ['init']
-  dir: 'terraform'
 
-# 2b. Create the GCS bucket using Terraform
-- name: hashicorp/terraform
-  id: terraform-apply
-  args: ['apply', '-auto-approve']
-  dir: 'terraform'
-
-# 3. Build and run the Dataflow pipeline (staged template)
-- name: gcr.io/cloud-builders/gradle
-  args: ['build', 'run']
-  waitFor: ['terraform-apply']
-
-# 4a. Install npm & run tests
-- name: gcr.io/cloud-builders/npm
-  id: npm-install-test
-  args: ['install-test']
-  dir: 'cloud-function'
-  waitFor: ['terraform-apply']
 
