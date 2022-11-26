@@ -1,4 +1,4 @@
-def hello_world_px(request):
+def hello_world_gx(request):
     """Responds to any HTTP request.
     Args:
         request (flask.Request): HTTP request object.
