@@ -35,7 +35,7 @@ terraform {
 }
 # connect to your Snowflake account
 provider "snowflake" {
-    account = "https://zm61867.europe-west2.gcp.snowflakecomputing.com"
+    account = "HI68725"
     region = "europe-west2"
     username = "ASKALLI"
     password = "A6D9BAA5b15a$"
