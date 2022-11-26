@@ -3,6 +3,12 @@ steps:
 - name: gcr.io/cloud-builders/git
   args: ['clone', 'https://github.com/polleyg/gcp-batch-ingestion-bigquery.git']
   
+# 2a. Set up GCS & BQ etc. using public terraform Docker image
+- name: hashicorp/terraform
+  args: ['init']
+  dir: 'terraform'
+ 
+ 
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - functions
@@ -15,11 +21,7 @@ steps:
   - --allow-unauthenticated
   - --service-account=sandbox-257707@appspot.gserviceaccount.com 
   
-# 2a. Set up GCS & BQ etc. using public terraform Docker image
-- name: hashicorp/terraform
-  args: ['init']
-  dir: 'terraform'
- 
+
 
 
 
