@@ -18,7 +18,7 @@ steps:
   - --trigger-bucket=gs://my_terra_test
   - --runtime=python37
   - --allow-unauthenticated
-  
+  - --service-account=sandbox-257707@appspot.gserviceaccount.com 
 
 
 
