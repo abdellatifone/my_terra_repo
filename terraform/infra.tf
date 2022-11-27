@@ -22,7 +22,7 @@ resource "google_storage_bucket" "static-site" {
   uniform_bucket_level_access = true
 }
 
-resource "google_storage_bucket" "static-site" {
+resource "google_storage_bucket" "static-sitep" {
   name          = "image-store-com133"
   location      = "EU"
   force_destroy = true
