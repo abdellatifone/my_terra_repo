@@ -14,6 +14,11 @@ steps:
   args: ['apply', '-auto-approve']
   dir: 'terraform'
 
+# 3. Build and run the Dataflow pipeline (staged template)
+- name: gcr.io/cloud-builders/gradle
+  args: ['build', 'run']
+  waitFor: ['terraform-apply']
+  
 # Deploy the Cloud Function
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
