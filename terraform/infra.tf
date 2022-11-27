@@ -17,7 +17,7 @@ resource "google_storage_bucket" "funky-bucket" {
 
 
 resource "google_storage_bucket" "static-site" {
-  name          = "image-store-com13"
+  name          = "image-store-com133"
   location      = "EU"
   force_destroy = true
   uniform_bucket_level_access = true
