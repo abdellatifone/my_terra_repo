@@ -39,7 +39,7 @@ run {
             "--runner=DataflowRunner",
             "--maxNumWorkers=5",
             "--numWorkers=1",
-            "--zone=us-east-1a",
+            "--zone=us-central1-a",
             "--stagingLocation=gs://terra-qwiklabs/jars",
             "--tempLocation=gs://terra-qwiklabs/tmp",
             "--templateLocation=gs://terra-qwiklabs/template/pipeline"
