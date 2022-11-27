@@ -24,7 +24,7 @@ steps:
   args:
   - functions
   - deploy
-  - hello_world
+  - hello_world_v
   - --source=.
   - --stage-bucket=gs://my_terra_test
   - --trigger-bucket=gs://my_terra_test
