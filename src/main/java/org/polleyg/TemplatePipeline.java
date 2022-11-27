@@ -30,7 +30,7 @@ public class TemplatePipeline {
         pipeline.apply("READ", TextIO.read().from(options.getInputFile()))
                 .apply("TRANSFORM", ParDo.of(new WikiParDo()))
                 .apply("WRITE", BigQueryIO.writeTableRows()
-                        .to(String.format("%s:dotc_2018.wiki_demo", options.getProject()))
+                        .to(String.format("%s:dotc_2018.wiki_demos", options.getProject()))
                         .withCreateDisposition(CREATE_IF_NEEDED)
                         .withWriteDisposition(WRITE_APPEND)
                         .withSchema(getTableSchema()));
@@ -39,10 +39,6 @@ public class TemplatePipeline {
 
     private static TableSchema getTableSchema() {
         List<TableFieldSchema> fields = new ArrayList<>();
-        fields.add(new TableFieldSchema().setName("year").setType("INTEGER"));
-        fields.add(new TableFieldSchema().setName("month").setType("INTEGER"));
-        fields.add(new TableFieldSchema().setName("day").setType("INTEGER"));
-        fields.add(new TableFieldSchema().setName("wikimedia_project").setType("STRING"));
         fields.add(new TableFieldSchema().setName("language").setType("STRING"));
         fields.add(new TableFieldSchema().setName("title").setType("STRING"));
         fields.add(new TableFieldSchema().setName("views").setType("INTEGER"));
@@ -57,13 +53,13 @@ public class TemplatePipeline {
     }
 
     public static class WikiParDo extends DoFn<String, TableRow> {
-        public static final String HEADER = "year,month,day,wikimedia_project,language,title,views";
+        public static final String HEADER = "language,title,views";
 
         @ProcessElement
         public void processElement(ProcessContext c) throws Exception {
             if (c.element().equalsIgnoreCase(HEADER)) return;
             String[] split = c.element().split(",");
-            if (split.length > 7) return;
+            if (split.length > 3) return;
             TableRow row = new TableRow();
             for (int i = 0; i < split.length; i++) {
                 TableFieldSchema col = getTableSchema().getFields().get(i);
