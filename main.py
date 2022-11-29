@@ -1,16 +1,29 @@
-def hello_world_v(request):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
-    """
-    request_json = request.get_json()
-    if request.args and 'message' in request.args:
-        return request.args.get('message')
-    elif request_json and 'message' in request_json:
-        return request_json['message']
-    else:
-        return f'Hello cloud advocates!!!'
+def startDataflowProcess(data, context):
+	from googleapiclient.discovery import build
+	#replace with your projectID
+	project = "sandbox-257707"
+	job = "called-from-a-cloud-function-batch-pipeline" + " " + str(data['timeCreated'])
+	#path of the dataflow template on google storage bucket
+	template = "gs://terra-qwiklabs/template/pipeline"
+	inputFile = "gs://" + str(data['bucket']) + "/" + str(data['name'])
+	#user defined parameters to pass to the dataflow pipeline job
+	parameters = {
+		'inputFile': inputFile,
+	}
+	#tempLocation is the path on GCS to store temp files generated during the dataflow job
+	environment = {'tempLocation': 'gs://terra-qwiklabs/temp-location'}
+
+	service = build('dataflow', 'v1b3', cache_discovery=False)
+	#below API is used when we want to pass the location of the dataflow job
+	request = service.projects().locations().templates().launch(
+		projectId=project,
+		gcsPath=template,
+		location='us-central1',
+		body={
+			'jobName': job,
+			'parameters': parameters,
+			'environment':environment
+		},
+	)
+	response = request.execute()
+	print(str(inputFile))
